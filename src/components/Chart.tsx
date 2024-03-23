@@ -9,6 +9,7 @@ import {
   Legend,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
+import { PackagesType, AllPackagesType } from "../type/Package";
 
 ChartJS.register(
   CategoryScale,
@@ -28,45 +29,43 @@ export const options = {
     },
     title: {
       display: true,
-      text: "Chart.js Line Chart",
+      text: "Npm Pakcage Download Count",
     },
   },
 };
 
-const labels = ["January", "February", "March", "April", "May", "June", "July"];
+const Chart = ({ datas }: { datas: PackagesType[] }) => {
+  const packageName = datas[0].packName;
+  const downloads = datas.map((el: PackagesType) => el.downloads);
+  const labels = datas.map((el: PackagesType) => el.start);
 
-export const data = {
-  labels,
-  datasets: [
-    {
-      label: "# of Votes",
-      data: [12, 19, 3, 5, 2, 3],
-      backgroundColor: [
-        "rgba(255, 99, 132, 0.2)",
-        "rgba(54, 162, 235, 0.2)",
-        "rgba(255, 206, 86, 0.2)",
-        "rgba(75, 192, 192, 0.2)",
-        "rgba(153, 102, 255, 0.2)",
-        "rgba(255, 159, 64, 0.2)",
-      ],
-      borderColor: [
-        "rgba(255, 99, 132, 1)",
-        "rgba(54, 162, 235, 1)",
-        "rgba(255, 206, 86, 1)",
-        "rgba(75, 192, 192, 1)",
-        "rgba(153, 102, 255, 1)",
-        "rgba(255, 159, 64, 1)",
-      ],
-      borderWidth: 1,
-    },
-  ],
-};
+  const data = {
+    labels,
+    datasets: [
+      {
+        label: `${packageName} - Download Count`,
+        data: downloads,
+        backgroundColor: ["rebeccapurple"],
+        borderColor: ["rebeccapurple"],
+        borderWidth: 1,
+      },
+    ],
+  };
 
-const Chart = () => {
   return (
-    <>
+    <div
+      style={{
+        width: "1000px",
+        height: "100vh",
+        backgroundColor: "#ffff",
+        padding: "0 80px",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
       <Line options={options} data={data} />
-    </>
+    </div>
   );
 };
 

@@ -1,8 +1,10 @@
-interface DownloadData {
-  downloads: number;
-  start: string;
-  end: string;
-  packName: string;
+export class PackagesType {
+  constructor(
+    public downloads: number,
+    public start: string,
+    public end: string,
+    public packName: string
+  ) {}
 }
 
-export type DownloadDataArray = DownloadData[];
+export type AllPackagesType = PackagesType[][];
